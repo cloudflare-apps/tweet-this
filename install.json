@@ -91,6 +91,13 @@
             "placeholder": "http://..."
           }
         }
+      },
+      "text": {
+        "order": 3,
+        "title": "Button label",
+        "type": "string",
+        "default": "Tweet",
+        "placeholder": "Tweet"
       }
     }
   }

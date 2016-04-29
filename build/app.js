@@ -37,11 +37,12 @@
 
     if (url) message += " - " + url;
 
-    window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message), "_blank");
+    window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message.trim()), "_blank");
     clearTooltip();
   }
 
   function handleMouseUp() {
+    var text = options.text.trim();
     var selection = window.getSelection();
 
     selectionString = selection.toString();
@@ -54,16 +55,19 @@
     previousSelectionString = selectionString;
 
     tooltip = new window.Tooltip({
-      target: selection.anchorNode.parentNode,
+      classes: "tooltip-theme-arrows eager-tweet-this",
+      content: text ? text + " " + BIRD : BIRD,
+      openOn: "always",
       position: "top center",
-      content: "Tweet " + BIRD,
-      openOn: "always"
+      target: selection.anchorNode.parentNode
     });
 
     tooltip.drop.drop.querySelector(".tooltip-content").addEventListener("mousedown", handleTooltipClick);
   }
 
   function updateElement() {
+    clearTooltip();
+
     document.addEventListener("mouseup", handleMouseUp);
   }
 

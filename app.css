@@ -1,11 +1,20 @@
-.eager-tweet-this {
-	color: white;
+.eager-tweet-this.tooltip-element.tooltip-theme-arrows .tooltip-content {
+  align-items: center;
+  color: white;
+  display: flex;
+  padding: 0.2em 0.7em 0.2em 1em;
 }
 
-.eager-tweet-this:hover {
-	cursor: pointer;
+.eager-tweet-this .tooltip-content:hover {
+  cursor: pointer;
 }
 
-.tooltip-element.tooltip-theme-arrows {
-	pointer-events: auto;
+.eager-tweet-this .tooltip-content > svg {
+  display: inline-block;
+  height: 2.5em;
+  width: 2.5em;
+}
+
+.eager-tweet-this.tooltip-element.tooltip-theme-arrows {
+  pointer-events: auto;
 }

@@ -34,11 +34,12 @@
 
     if (url) message += ` - ${url}`
 
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank")
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
     clearTooltip()
   }
 
   function handleMouseUp() {
+    const text = options.text.trim()
     const selection = window.getSelection()
 
     selectionString = selection.toString()
@@ -51,10 +52,11 @@
     previousSelectionString = selectionString
 
     tooltip = new window.Tooltip({
-      target: selection.anchorNode.parentNode,
+      classes: "tooltip-theme-arrows eager-tweet-this",
+      content: text ? `${text} ${BIRD}` : BIRD,
+      openOn: "always",
       position: "top center",
-      content: `Tweet ${BIRD}`,
-      openOn: "always"
+      target: selection.anchorNode.parentNode
     })
 
     tooltip
@@ -65,6 +67,8 @@
   }
 
   function updateElement() {
+    clearTooltip()
+
     document.addEventListener("mouseup", handleMouseUp)
   }
 
