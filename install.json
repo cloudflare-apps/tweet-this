@@ -1,5 +1,23 @@
 {
   "resources": {
+    "head": [
+      {
+        "type": "style",
+        "src": "./vendor/tooltip-theme-arrows.css"
+      },
+      {
+        "type": "script",
+        "src": "./vendor/tether.min.js"
+      },
+      {
+        "type": "script",
+        "src": "./vendor/drop.min.js"
+      },
+      {
+        "type": "script",
+        "src": "./vendor/tooltip.min.js"
+      }
+    ],
     "body": [
       {
         "type": "style",
