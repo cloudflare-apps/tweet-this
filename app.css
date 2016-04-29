@@ -1,0 +1,11 @@
+.eager-tweet-this {
+	color: white;
+}
+
+.eager-tweet-this:hover {
+	cursor: pointer;
+}
+
+.tooltip-element.tooltip-theme-arrows {
+	pointer-events: auto;
+}
