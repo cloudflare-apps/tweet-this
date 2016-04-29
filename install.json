@@ -39,6 +39,59 @@
   },
   "options": {
     "properties": {
+      "username": {
+        "order": 0,
+        "title": "Twitter username",
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "order": 0,
+            "title": "Add your username to the visitor's tweet.",
+            "type": "boolean",
+            "default": true
+          },
+          "value": {
+            "showIf": "username.enabled",
+            "order": 1,
+            "title": "Twitter username",
+            "type": "string",
+            "placeholder": "@username"
+          }
+        }
+      },
+      "url": {
+        "order": 2,
+        "title": "Tweet URL",
+        "type": "object",
+        "properties": {
+          "type": {
+            "order": 0,
+            "format": "radios",
+            "type": "string",
+            "title": "What URL should we append to the visitor's tweet?",
+            "default": "location",
+            "enum": [
+              "location",
+              "none",
+              "custom"
+            ],
+            "enumNames": {
+              "location": "My website's URL",
+              "custom": "A custom URL",
+              "none": "Don't append a URL"
+            }
+          },
+          "custom": {
+            "showIf": {
+              "url.type": "custom"
+            },
+            "order": 1,
+            "title": "Custom URL",
+            "type": "string",
+            "placeholder": "http://..."
+          }
+        }
+      }
     }
   }
 }

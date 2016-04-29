@@ -17,17 +17,22 @@
 
   function handleTooltipClick() {
     let message = selectionString
+    let url
 
-    if (true) { // options.username
-      message = `@${options.username} ${message}`
+    if (options.username.enabled && options.username.value) {
+      message = `${options.username.value} ${message}`
     }
 
-    if (true) { // options.useURL
+    if (options.url.type === "custom") {
+      url = options.url.custom
+    }
+    else if (options.url.type === "location") {
       const {host, path, scheme} = Eager.proxy.originalURL.parsed
-      const url = Eager.siteId === "preview" ? `${scheme}://${host}${path}` : window.location
 
-      message += ` ${url}`
+      url = INSTALL_ID === "preview" ? `${scheme}://${host}${path}` : window.location
     }
+
+    if (url) message += ` - ${url}`
 
     window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, "_blank")
     clearTooltip()

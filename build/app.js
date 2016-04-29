@@ -17,23 +17,25 @@
 
   function handleTooltipClick() {
     var message = selectionString;
+    var url = void 0;
 
-    if (true) {
-      // options.username
-      message = "@" + options.username + " " + message;
+    if (options.username.enabled && options.username.value) {
+      message = options.username.value + " " + message;
     }
 
-    if (true) {
-      // options.useURL
+    if (options.url.type === "custom") {
+      url = options.url.custom;
+    } else if (options.url.type === "location") {
       var _Eager$proxy$original = Eager.proxy.originalURL.parsed;
       var host = _Eager$proxy$original.host;
       var path = _Eager$proxy$original.path;
       var scheme = _Eager$proxy$original.scheme;
 
-      var url = Eager.siteId === "preview" ? scheme + "://" + host + path : window.location;
 
-      message += " " + url;
+      url = INSTALL_ID === "preview" ? scheme + "://" + host + path : window.location;
     }
+
+    if (url) message += " - " + url;
 
     window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message), "_blank");
     clearTooltip();
