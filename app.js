@@ -16,12 +16,9 @@
   }
 
   function handleTooltipClick() {
-    let message = selectionString
+    const selection = window.getSelection()
+    let message = `“${selectionString.trim()}”`
     let url
-
-    if (options.username.enabled && options.username.value) {
-      message = `${options.username.value} ${message}`
-    }
 
     if (options.url.type === "custom") {
       url = options.url.custom
@@ -34,56 +31,68 @@
 
     if (url) message += ` - ${url}`
 
+    if (options.username.enabled && options.username.value) {
+      message = `${message} via ${options.username.value}`
+    }
+
     window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
+
     clearTooltip()
+    selection.removeAllRanges()
   }
 
-  function handleMouseUp() {
+  function updateTooltip(forceVisibility = false) {
     const text = options.text.trim()
     const selection = window.getSelection()
 
     selectionString = selection.toString()
 
-    if (selection.type !== "Range" || previousSelectionString === selectionString) {
+    const selectionHasChanged = previousSelectionString !== selectionString
+    const hasRange = selection.type === "Range"
+
+    if ((!hasRange || !selectionHasChanged) && !forceVisibility) {
       clearTooltip()
-      return
     }
+    else if (hasRange && (selectionHasChanged || forceVisibility)) {
+      clearTooltip()
 
-    previousSelectionString = selectionString
+      previousSelectionString = selectionString
 
-    tooltip = new window.Tooltip({
-      classes: "tooltip-theme-arrows eager-tweet-this",
-      content: text ? `${text} ${BIRD}` : BIRD,
-      openOn: "always",
-      position: "top center",
-      target: selection.anchorNode.parentNode
-    })
+      tooltip = new window.Tooltip({
+        classes: "tooltip-theme-arrows eager-tweet-this",
+        content: text ? `${text} ${BIRD}` : BIRD,
+        openOn: "always",
+        position: "top center",
+        target: selection.anchorNode.parentNode
+      })
 
-    tooltip
-      .drop
-      .drop
-      .querySelector(".tooltip-content")
-      .addEventListener("mousedown", handleTooltipClick)
+      tooltip
+        .drop
+        .drop
+        .querySelector(".tooltip-content")
+        .addEventListener("mousedown", handleTooltipClick)
+    }
   }
 
-  function updateElement() {
-    clearTooltip()
-
-    document.addEventListener("mouseup", handleMouseUp)
+  function bootstrap() {
+    document.addEventListener("mouseup", () => updateTooltip())
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateElement)
+    document.addEventListener("DOMContentLoaded", bootstrap)
   }
   else {
-    updateElement()
+    bootstrap()
   }
 
   window.INSTALL_SCOPE = {
-    setOptions(nextOptions) {
+    setOptionsCommon(nextOptions) {
+      options = nextOptions
+    },
+    setOptionsRerender(nextOptions) {
       options = nextOptions
 
-      updateElement()
+      updateTooltip(true)
     }
   }
 }())

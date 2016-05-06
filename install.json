@@ -32,8 +32,15 @@
   "preview": {
     "handlers": [
       {
-        "options": ["*"],
-        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+        "options": [
+          "username",
+          "url"
+        ],
+        "execute": "INSTALL_SCOPE.setOptionsCommon(INSTALL_OPTIONS)"
+      },
+      {
+        "options": ["text"],
+        "execute": "INSTALL_SCOPE.setOptionsRerender(INSTALL_OPTIONS)"
       }
     ]
   },
@@ -68,17 +75,17 @@
             "order": 0,
             "format": "radios",
             "type": "string",
-            "title": "What URL should we append to the visitor's tweet?",
+            "title": "Choose a URL to add to the tweet",
             "default": "location",
             "enum": [
-              "location",
               "none",
+              "location",
               "custom"
             ],
             "enumNames": {
+              "none": "Don't add a URL",
               "location": "My website's URL",
-              "custom": "A custom URL",
-              "none": "Don't append a URL"
+              "custom": "A custom URL"
             }
           },
           "custom": {

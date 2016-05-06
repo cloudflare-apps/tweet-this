@@ -16,12 +16,9 @@
   }
 
   function handleTooltipClick() {
-    var message = selectionString;
+    var selection = window.getSelection();
+    var message = "“" + selectionString.trim() + "”";
     var url = void 0;
-
-    if (options.username.enabled && options.username.value) {
-      message = options.username.value + " " + message;
-    }
 
     if (options.url.type === "custom") {
       url = options.url.custom;
@@ -37,51 +34,66 @@
 
     if (url) message += " - " + url;
 
+    if (options.username.enabled && options.username.value) {
+      message = message + " via " + options.username.value;
+    }
+
     window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message.trim()), "_blank");
+
     clearTooltip();
+    selection.removeAllRanges();
   }
 
-  function handleMouseUp() {
+  function updateTooltip() {
+    var forceVisibility = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+
     var text = options.text.trim();
     var selection = window.getSelection();
 
     selectionString = selection.toString();
 
-    if (selection.type !== "Range" || previousSelectionString === selectionString) {
+    var selectionHasChanged = previousSelectionString !== selectionString;
+    var hasRange = selection.type === "Range";
+
+    if ((!hasRange || !selectionHasChanged) && !forceVisibility) {
       clearTooltip();
-      return;
+    } else if (hasRange && (selectionHasChanged || forceVisibility)) {
+      clearTooltip();
+
+      previousSelectionString = selectionString;
+
+      tooltip = new window.Tooltip({
+        classes: "tooltip-theme-arrows eager-tweet-this",
+        content: text ? text + " " + BIRD : BIRD,
+        openOn: "always",
+        position: "top center",
+        target: selection.anchorNode.parentNode
+      });
+
+      tooltip.drop.drop.querySelector(".tooltip-content").addEventListener("mousedown", handleTooltipClick);
     }
-
-    previousSelectionString = selectionString;
-
-    tooltip = new window.Tooltip({
-      classes: "tooltip-theme-arrows eager-tweet-this",
-      content: text ? text + " " + BIRD : BIRD,
-      openOn: "always",
-      position: "top center",
-      target: selection.anchorNode.parentNode
-    });
-
-    tooltip.drop.drop.querySelector(".tooltip-content").addEventListener("mousedown", handleTooltipClick);
   }
 
-  function updateElement() {
-    clearTooltip();
-
-    document.addEventListener("mouseup", handleMouseUp);
+  function bootstrap() {
+    document.addEventListener("mouseup", function () {
+      return updateTooltip();
+    });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateElement);
+    document.addEventListener("DOMContentLoaded", bootstrap);
   } else {
-    updateElement();
+    bootstrap();
   }
 
   window.INSTALL_SCOPE = {
-    setOptions: function setOptions(nextOptions) {
+    setOptionsCommon: function setOptionsCommon(nextOptions) {
+      options = nextOptions;
+    },
+    setOptionsRerender: function setOptionsRerender(nextOptions) {
       options = nextOptions;
 
-      updateElement();
+      updateTooltip(true);
     }
   };
 })();

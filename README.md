@@ -1,6 +1,6 @@
 # Tweet This!
 
-*Getcho tweet on*
+*Let others tweet about you*
 
 TweetThis is an app that allows visitors to tweet text content on your webpage simply by highlighting it
 
