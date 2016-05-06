@@ -48,11 +48,11 @@
     selectionString = selection.toString();
 
     var selectionHasChanged = previousSelectionString !== selectionString;
+    var hasRange = selection.type === "Range";
 
-    if (selection.type !== "Range" || !selectionHasChanged) {
+    if (!hasRange || !selectionHasChanged) {
       clearTooltip();
-      return;
-    } else if (selection.type === "Range" && selectionHasChanged) {
+    } else if (hasRange && selectionHasChanged) {
       clearTooltip();
 
       previousSelectionString = selectionString;
