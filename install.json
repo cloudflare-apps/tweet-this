@@ -68,7 +68,7 @@
             "order": 0,
             "format": "radios",
             "type": "string",
-            "title": "What URL should we add to the visitor's tweet?",
+            "title": "Choose a URL to add to the tweet",
             "default": "location",
             "enum": [
               "none",
@@ -78,7 +78,7 @@
             "enumNames": {
               "none": "Don't add a URL",
               "location": "My website's URL",
-              "custom": "A custom URL"              
+              "custom": "A custom URL"
             }
           },
           "custom": {
