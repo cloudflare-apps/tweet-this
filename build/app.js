@@ -16,6 +16,7 @@
   }
 
   function handleTooltipClick() {
+    var selection = window.getSelection();
     var message = "“" + selectionString.trim() + "”";
     var url = void 0;
 
@@ -38,10 +39,14 @@
     }
 
     window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message.trim()), "_blank");
+
     clearTooltip();
+    selection.removeAllRanges();
   }
 
-  function handleMouseUp() {
+  function updateTooltip() {
+    var forceVisibility = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+
     var text = options.text.trim();
     var selection = window.getSelection();
 
@@ -50,9 +55,9 @@
     var selectionHasChanged = previousSelectionString !== selectionString;
     var hasRange = selection.type === "Range";
 
-    if (!hasRange || !selectionHasChanged) {
+    if ((!hasRange || !selectionHasChanged) && !forceVisibility) {
       clearTooltip();
-    } else if (hasRange && selectionHasChanged) {
+    } else if (hasRange && (selectionHasChanged || forceVisibility)) {
       clearTooltip();
 
       previousSelectionString = selectionString;
@@ -69,23 +74,26 @@
     }
   }
 
-  function updateElement() {
-    clearTooltip();
-
-    document.addEventListener("mouseup", handleMouseUp);
+  function bootstrap() {
+    document.addEventListener("mouseup", function () {
+      return updateTooltip();
+    });
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateElement);
+    document.addEventListener("DOMContentLoaded", bootstrap);
   } else {
-    updateElement();
+    bootstrap();
   }
 
   window.INSTALL_SCOPE = {
-    setOptions: function setOptions(nextOptions) {
+    setOptionsCommon: function setOptionsCommon(nextOptions) {
+      options = nextOptions;
+    },
+    setOptionsRerender: function setOptionsRerender(nextOptions) {
       options = nextOptions;
 
-      updateElement();
+      updateTooltip(true);
     }
   };
 })();

@@ -32,8 +32,15 @@
   "preview": {
     "handlers": [
       {
-        "options": ["*"],
-        "execute": "INSTALL_SCOPE.setOptions(INSTALL_OPTIONS)"
+        "options": [
+          "username",
+          "url"
+        ],
+        "execute": "INSTALL_SCOPE.setOptionsCommon(INSTALL_OPTIONS)"
+      },
+      {
+        "options": ["text"],
+        "execute": "INSTALL_SCOPE.setOptionsRerender(INSTALL_OPTIONS)"
       }
     ]
   },

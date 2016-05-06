@@ -16,6 +16,7 @@
   }
 
   function handleTooltipClick() {
+    const selection = window.getSelection()
     let message = `“${selectionString.trim()}”`
     let url
 
@@ -35,10 +36,12 @@
     }
 
     window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
+
     clearTooltip()
+    selection.removeAllRanges()
   }
 
-  function handleMouseUp() {
+  function updateTooltip(forceVisibility = false) {
     const text = options.text.trim()
     const selection = window.getSelection()
 
@@ -47,10 +50,10 @@
     const selectionHasChanged = previousSelectionString !== selectionString
     const hasRange = selection.type === "Range"
 
-    if (!hasRange || !selectionHasChanged) {
+    if ((!hasRange || !selectionHasChanged) && !forceVisibility) {
       clearTooltip()
     }
-    else if (hasRange && selectionHasChanged){
+    else if (hasRange && (selectionHasChanged || forceVisibility)) {
       clearTooltip()
 
       previousSelectionString = selectionString
@@ -71,24 +74,25 @@
     }
   }
 
-  function updateElement() {
-    clearTooltip()
-
-    document.addEventListener("mouseup", handleMouseUp)
+  function bootstrap() {
+    document.addEventListener("mouseup", () => updateTooltip())
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", updateElement)
+    document.addEventListener("DOMContentLoaded", bootstrap)
   }
   else {
-    updateElement()
+    bootstrap()
   }
 
   window.INSTALL_SCOPE = {
-    setOptions(nextOptions) {
+    setOptionsCommon(nextOptions) {
+      options = nextOptions
+    },
+    setOptionsRerender(nextOptions) {
       options = nextOptions
 
-      updateElement()
+      updateTooltip(true)
     }
   }
 }())
