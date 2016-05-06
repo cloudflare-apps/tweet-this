@@ -44,11 +44,13 @@
 
     selectionString = selection.toString()
 
-    if (selection.type !== "Range" || previousSelectionString === selectionString) {
+    const selectionHasChanged = previousSelectionString !== selectionString
+
+    if (selection.type !== "Range" || !selectionHasChanged) {
       clearTooltip()
       return
     }
-    else if (selection.type === "Range" && selectionString !== previousSelectionString){
+    else if (selection.type === "Range" && selectionHasChanged){
       clearTooltip()
 
       previousSelectionString = selectionString
