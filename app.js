@@ -16,12 +16,8 @@
   }
 
   function handleTooltipClick() {
-    let message = selectionString
+    let message = `“${selectionString.trim()}”`
     let url
-
-    if (options.username.enabled && options.username.value) {
-      message = `${options.username.value} ${message}`
-    }
 
     if (options.url.type === "custom") {
       url = options.url.custom
@@ -33,6 +29,10 @@
     }
 
     if (url) message += ` - ${url}`
+
+    if (options.username.enabled && options.username.value) {
+      message = `${message} via ${options.username.value}`
+    }
 
     window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
     clearTooltip()
@@ -48,22 +48,25 @@
       clearTooltip()
       return
     }
+    else if (selection.type === "Range" && selectionString !== previousSelectionString){
+      clearTooltip()
 
-    previousSelectionString = selectionString
+      previousSelectionString = selectionString
 
-    tooltip = new window.Tooltip({
-      classes: "tooltip-theme-arrows eager-tweet-this",
-      content: text ? `${text} ${BIRD}` : BIRD,
-      openOn: "always",
-      position: "top center",
-      target: selection.anchorNode.parentNode
-    })
+      tooltip = new window.Tooltip({
+        classes: "tooltip-theme-arrows eager-tweet-this",
+        content: text ? `${text} ${BIRD}` : BIRD,
+        openOn: "always",
+        position: "top center",
+        target: selection.anchorNode.parentNode
+      })
 
-    tooltip
-      .drop
-      .drop
-      .querySelector(".tooltip-content")
-      .addEventListener("mousedown", handleTooltipClick)
+      tooltip
+        .drop
+        .drop
+        .querySelector(".tooltip-content")
+        .addEventListener("mousedown", handleTooltipClick)
+    }
   }
 
   function updateElement() {

@@ -16,12 +16,8 @@
   }
 
   function handleTooltipClick() {
-    var message = selectionString;
+    var message = "“" + selectionString.trim() + "”";
     var url = void 0;
-
-    if (options.username.enabled && options.username.value) {
-      message = options.username.value + " " + message;
-    }
 
     if (options.url.type === "custom") {
       url = options.url.custom;
@@ -37,6 +33,10 @@
 
     if (url) message += " - " + url;
 
+    if (options.username.enabled && options.username.value) {
+      message = message + " via " + options.username.value;
+    }
+
     window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message.trim()), "_blank");
     clearTooltip();
   }
@@ -50,19 +50,21 @@
     if (selection.type !== "Range" || previousSelectionString === selectionString) {
       clearTooltip();
       return;
+    } else if (selection.type === "Range" && selectionString !== previousSelectionString) {
+      clearTooltip();
+
+      previousSelectionString = selectionString;
+
+      tooltip = new window.Tooltip({
+        classes: "tooltip-theme-arrows eager-tweet-this",
+        content: text ? text + " " + BIRD : BIRD,
+        openOn: "always",
+        position: "top center",
+        target: selection.anchorNode.parentNode
+      });
+
+      tooltip.drop.drop.querySelector(".tooltip-content").addEventListener("mousedown", handleTooltipClick);
     }
-
-    previousSelectionString = selectionString;
-
-    tooltip = new window.Tooltip({
-      classes: "tooltip-theme-arrows eager-tweet-this",
-      content: text ? text + " " + BIRD : BIRD,
-      openOn: "always",
-      position: "top center",
-      target: selection.anchorNode.parentNode
-    });
-
-    tooltip.drop.drop.querySelector(".tooltip-content").addEventListener("mousedown", handleTooltipClick);
   }
 
   function updateElement() {
