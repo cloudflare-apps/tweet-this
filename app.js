@@ -16,6 +16,8 @@
   </svg>`
 
   function clearTooltip() {
+    previousSelectionString = ""
+
     tooltip && tooltip.remove()
   }
 
