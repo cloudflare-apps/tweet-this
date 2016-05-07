@@ -1,6 +1,7 @@
 (function () {
   if (!window.addEventListener) return // Check for IE9+
 
+  const {max} = Math
   const CHARACTER_LIMIT = 140
   const URL_LENGTH = 23
   const TRUNCATE_CHARACTER = "...”"
@@ -45,9 +46,11 @@
 
   function handleTooltipClick() {
     const selection = window.getSelection()
-    const username = options.username.enabled ? ` ${options.username.value.trim()}` : ""
+    let username = options.username.enabled && options.username.value.trim() || ""
     let message = `“${selectionString.trim()}”`
     let url = ""
+
+    if (username) username = ` ${options.username.value}`
 
     if (options.url.type === "custom") {
       url = options.url.custom
@@ -60,12 +63,11 @@
 
     if (url) url = URL_DELIMITER + url
 
-    const restLength = username.length + (url ? URL_LENGTH + URL_DELIMITER.length : 0)
+    const restLength = username.length + (url ? URL_DELIMITER.length + URL_LENGTH : 0)
+    const limit = max(CHARACTER_LIMIT - restLength, 0)
 
-    if (message.length > CHARACTER_LIMIT) {
-      const limit = Math.max(CHARACTER_LIMIT - TRUNCATE_CHARACTER.length - restLength, 0)
-
-      message = message.substr(0, limit).trim()
+    if (message.length > limit) {
+      message = message.substr(0, max(limit - TRUNCATE_CHARACTER.length, 0)).trim()
       message += TRUNCATE_CHARACTER
     }
 

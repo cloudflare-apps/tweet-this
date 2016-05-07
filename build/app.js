@@ -3,6 +3,8 @@
 (function () {
   if (!window.addEventListener) return; // Check for IE9+
 
+  var max = Math.max;
+
   var CHARACTER_LIMIT = 140;
   var URL_LENGTH = 23;
   var TRUNCATE_CHARACTER = "...”";
@@ -46,9 +48,11 @@
 
   function handleTooltipClick() {
     var selection = window.getSelection();
-    var username = options.username.enabled ? " " + options.username.value.trim() : "";
+    var username = options.username.enabled && options.username.value.trim() || "";
     var message = "“" + selectionString.trim() + "”";
     var url = "";
+
+    if (username) username = " " + options.username.value;
 
     if (options.url.type === "custom") {
       url = options.url.custom;
@@ -64,12 +68,11 @@
 
     if (url) url = URL_DELIMITER + url;
 
-    var restLength = username.length + (url ? URL_LENGTH + URL_DELIMITER.length : 0);
+    var restLength = username.length + (url ? URL_DELIMITER.length + URL_LENGTH : 0);
+    var limit = max(CHARACTER_LIMIT - restLength, 0);
 
-    if (message.length > CHARACTER_LIMIT) {
-      var limit = Math.max(CHARACTER_LIMIT - TRUNCATE_CHARACTER.length - restLength, 0);
-
-      message = message.substr(0, limit).trim();
+    if (message.length > limit) {
+      message = message.substr(0, max(limit - TRUNCATE_CHARACTER.length, 0)).trim();
       message += TRUNCATE_CHARACTER;
     }
 
