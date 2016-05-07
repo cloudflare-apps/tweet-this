@@ -21,6 +21,28 @@
     tooltip && tooltip.remove()
   }
 
+  function openModal(text = "") {
+    const w = window
+    const config = {
+      scrollbars: "yes",
+      pda: "yes",
+      toolbar: "no",
+      location: "yes",
+      width: 670,
+      height: 472
+    }
+
+    config.left = Math.max(w.screenX + Math.round(w.outerWidth / 2 - config.width / 2), 0)
+    config.top = Math.max(w.screenY + Math.round(w.outerHeight / 2 - config.height / 2), 0)
+
+    const features = Object
+      .keys(config)
+      .map(key => `${key}=${config[key]}`)
+      .join(", ")
+
+    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(text.trim())}`, "_blank", features)
+  }
+
   function handleTooltipClick() {
     const selection = window.getSelection()
     const username = options.username.enabled ? ` ${options.username.value.trim()}` : ""
@@ -46,9 +68,10 @@
       message = message.substr(0, limit).trim()
       message += TRUNCATE_CHARACTER
     }
+
     message += username + url
 
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
+    openModal(message)
 
     clearTooltip()
     selection.removeAllRanges()
