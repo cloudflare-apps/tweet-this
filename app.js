@@ -1,8 +1,12 @@
 (function () {
   if (!window.addEventListener) return // Check for IE9+
 
-  let options = INSTALL_OPTIONS
+  const CHARACTER_LIMIT = 140
+  const URL_LENGTH = 23
+  const TRUNCATE_CHARACTER = "...”"
+  const URL_DELIMITER = " — "
 
+  let options = INSTALL_OPTIONS
   let selectionString
   let previousSelectionString
   let tooltip
@@ -17,8 +21,9 @@
 
   function handleTooltipClick() {
     const selection = window.getSelection()
+    const username = options.username.enabled ? ` ${options.username.value.trim()}` : ""
     let message = `“${selectionString.trim()}”`
-    let url
+    let url = ""
 
     if (options.url.type === "custom") {
       url = options.url.custom
@@ -29,11 +34,17 @@
       url = INSTALL_ID === "preview" ? `${scheme}://${host}${path}` : window.location
     }
 
-    if (url) message += ` - ${url}`
+    if (url) url = URL_DELIMITER + url
 
-    if (options.username.enabled && options.username.value) {
-      message = `${message} via ${options.username.value}`
+    const restLength = username.length + (url ? URL_LENGTH + URL_DELIMITER.length : 0)
+
+    if (message.length > CHARACTER_LIMIT) {
+      const limit = Math.max(CHARACTER_LIMIT - TRUNCATE_CHARACTER.length - restLength, 0)
+
+      message = message.substr(0, limit).trim()
+      message += TRUNCATE_CHARACTER
     }
+    message += username + url
 
     window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message.trim())}`, "_blank")
 
