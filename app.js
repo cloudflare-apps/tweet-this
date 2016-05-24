@@ -97,7 +97,7 @@
       previousSelectionString = selectionString
 
       tooltip = new window.Tooltip({
-        classes: "tooltip-theme-arrows eager-tweet-this",
+        classes: "eager-tweet-this",
         content: text ? `${text} ${BIRD}` : BIRD,
         openOn: "always",
         position: "top center",
@@ -107,7 +107,7 @@
       tooltip
         .drop
         .drop
-        .querySelector(".tooltip-content")
+        .querySelector(".eager-tt-content")
         .addEventListener("mousedown", handleTooltipClick)
     }
   }
