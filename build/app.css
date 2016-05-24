@@ -1,4 +1,4 @@
-.eager-tweet-this.tooltip-element.tooltip-theme-arrows .tooltip-content {
+.eager-tt-element .eager-tt-content {
   -webkit-box-align: center;
   -webkit-align-items: center;
       -ms-flex-align: center;
@@ -11,16 +11,16 @@
   padding: 0.2em 0.7em 0.2em 1em;
 }
 
-.eager-tweet-this .tooltip-content:hover {
+.eager-tt-content:hover {
   cursor: pointer;
 }
 
-.eager-tweet-this .tooltip-content > svg {
+.eager-tt-content > svg {
   display: inline-block;
   height: 2.5em;
   width: 2.5em;
 }
 
-.eager-tweet-this.tooltip-element.tooltip-theme-arrows {
+.eager-tt-element {
   pointer-events: auto;
 }
