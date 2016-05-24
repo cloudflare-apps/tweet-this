@@ -93,11 +93,10 @@
     selectionString = selection.toString();
 
     var selectionHasChanged = previousSelectionString !== selectionString;
-    var hasRange = selection.type === "Range";
 
-    if ((!hasRange || !selectionHasChanged) && !forceVisibility) {
+    if ((selection.isCollapsed || !selectionHasChanged) && !forceVisibility) {
       clearTooltip();
-    } else if (hasRange && (selectionHasChanged || forceVisibility)) {
+    } else if (!selection.isCollapsed && (selectionHasChanged || forceVisibility)) {
       clearTooltip();
 
       previousSelectionString = selectionString;
