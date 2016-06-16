@@ -32,7 +32,6 @@
   }
 
   function getMessage() {
-    var selection = window.getSelection();
     var username = options.username.enabled && options.username.value.trim() || "";
     var message = "“" + selectionString.trim() + "”";
     var url = "";
@@ -63,15 +62,16 @@
 
     message += username + url;
 
-    clearTooltip();
-    selection.removeAllRanges();
-
     return message.trim();
   }
 
-  function handleTooltipClick() {
+  window.openEagerTweetPopup = function openEagerTweetPopup() {
     var w = window;
+    var selection = window.getSelection();
     var message = getMessage();
+
+    clearTooltip();
+    selection.removeAllRanges();
 
     if (!message) return;
 
@@ -83,7 +83,7 @@
     }).join(",");
 
     window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message), "_blank", features);
-  }
+  };
 
   function updateTooltip() {
     var forceVisibility = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
@@ -102,20 +102,31 @@
 
       previousSelectionString = selectionString;
 
+      var innerLink = document.createElement("a");
+
+      innerLink.innerHTML = text ? text + " " + BIRD : BIRD;
+      innerLink.href = "javascript:openEagerTweetPopup()"; // eslint-disable-line no-script-url
+      innerLink.className = "eager-tt-content";
+
       tooltip = new window.Tooltip({
         classes: "eager-tweet-this",
-        content: text ? text + " " + BIRD : BIRD,
+        content: document.createElement("div"),
         openOn: "always",
         position: "top center",
         target: selection.anchorNode.parentNode
       });
 
-      tooltip.drop.drop.querySelector(".eager-tt-content").addEventListener("mousedown", handleTooltipClick);
+      var drop = tooltip.drop.drop;
+
+      var vendorContent = drop.querySelector(".eager-tt-content");
+
+      drop.removeChild(vendorContent);
+      drop.appendChild(innerLink);
     }
   }
 
   function bootstrap() {
-    document.addEventListener("mouseup", function () {
+    document.addEventListener("click", function () {
       return updateTooltip();
     });
   }
