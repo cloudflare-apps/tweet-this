@@ -10,6 +10,14 @@
   var TRUNCATE_CHARACTER = "...”";
   var URL_DELIMITER = " — ";
 
+  var modalConfig = {
+    scrollbars: "yes",
+    toolbar: "no",
+    location: "yes",
+    width: 670,
+    height: 472
+  };
+
   var options = INSTALL_OPTIONS;
   var selectionString = void 0;
   var previousSelectionString = void 0;
@@ -23,30 +31,7 @@
     tooltip && tooltip.remove();
   }
 
-  function openModal() {
-    var text = arguments.length <= 0 || arguments[0] === undefined ? "" : arguments[0];
-
-    var w = window;
-    var config = {
-      scrollbars: "yes",
-      pda: "yes",
-      toolbar: "no",
-      location: "yes",
-      width: 670,
-      height: 472
-    };
-
-    config.left = Math.max(w.screenX + Math.round(w.outerWidth / 2 - config.width / 2), 0);
-    config.top = Math.max(w.screenY + Math.round(w.outerHeight / 2 - config.height / 2), 0);
-
-    var features = Object.keys(config).map(function (key) {
-      return key + "=" + config[key];
-    }).join(", ");
-
-    window.open("https://twitter.com/intent/tweet?text=" + encodeURI(text.trim()), "_blank", features);
-  }
-
-  function handleTooltipClick() {
+  function getMessage() {
     var selection = window.getSelection();
     var username = options.username.enabled && options.username.value.trim() || "";
     var message = "“" + selectionString.trim() + "”";
@@ -78,10 +63,26 @@
 
     message += username + url;
 
-    openModal(message);
-
     clearTooltip();
     selection.removeAllRanges();
+
+    return message.trim();
+  }
+
+  function handleTooltipClick() {
+    var w = window;
+    var message = getMessage();
+
+    if (!message) return;
+
+    modalConfig.left = Math.max(w.screenX + Math.round(w.outerWidth / 2 - modalConfig.width / 2), 0);
+    modalConfig.top = Math.max(w.screenY + Math.round(w.outerHeight / 2 - modalConfig.height / 2), 0);
+
+    var features = Object.keys(modalConfig).map(function (key) {
+      return key + "=" + modalConfig[key];
+    }).join(",");
+
+    window.open("https://twitter.com/intent/tweet?text=" + encodeURI(message), "_blank", features);
   }
 
   function updateTooltip() {
