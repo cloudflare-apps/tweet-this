@@ -22,14 +22,16 @@
 }
 
 .eager-tt-element .eager-tt-content {
-  border-radius: 5px;
-  position: relative;
-  font-family: inherit;
   background: #000;
+  border-radius: 5px;
   color: #eee;
-  padding: 1em;
+  font-family: inherit;
+  font-weight: normal;
   font-size: 1.1em;
   line-height: 1.5;
+  padding: .5em 1em;
+  position: relative;
+  text-decoration: none;
 }
 
 .eager-tt-element .eager-tt-content:before {
@@ -167,6 +169,3 @@
   border-right-color: #000;
 }
 
-.eager-tt-element .eager-tt-content {
-  padding: .5em 1em;
-}
