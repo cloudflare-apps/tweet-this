@@ -55,7 +55,7 @@
             "order": 0,
             "title": "Add your username to the visitor's tweet.",
             "type": "boolean",
-            "default": true
+            "default": false
           },
           "value": {
             "showIf": "username.enabled",
