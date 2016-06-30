@@ -41,13 +41,17 @@
     if (options.url.type === "custom") {
       url = options.url.custom;
     } else if (options.url.type === "location") {
-      var _Eager$proxy$original = Eager.proxy.originalURL.parsed;
-      var host = _Eager$proxy$original.host;
-      var path = _Eager$proxy$original.path;
-      var scheme = _Eager$proxy$original.scheme;
+      if (INSTALL_ID === "preview") {
+        var _Eager$proxy$original = Eager.proxy.originalURL.parsed;
+        var host = _Eager$proxy$original.host;
+        var path = _Eager$proxy$original.path;
+        var scheme = _Eager$proxy$original.scheme;
 
 
-      url = INSTALL_ID === "preview" ? scheme + "://" + host + path : window.location;
+        url = scheme + "://" + host + path;
+      } else {
+        url = window.location;
+      }
     }
 
     if (url) url = URL_DELIMITER + url;

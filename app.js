@@ -41,9 +41,14 @@
       url = options.url.custom
     }
     else if (options.url.type === "location") {
-      const {host, path, scheme} = Eager.proxy.originalURL.parsed
+      if (INSTALL_ID === "preview") {
+        const {host, path, scheme} = Eager.proxy.originalURL.parsed
 
-      url = INSTALL_ID === "preview" ? `${scheme}://${host}${path}` : window.location
+        url = `${scheme}://${host}${path}`
+      }
+      else {
+        url = window.location
+      }
     }
 
     if (url) url = URL_DELIMITER + url
