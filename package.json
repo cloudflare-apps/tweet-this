@@ -1,33 +1,47 @@
 {
-  "name": "eager-tweet-this",
+  "name": "cloudflare-tweet-this-app",
   "version": "0.0.0",
-  "description": "Tweet highlighted text [Eager](https://eager.io).",
-  "main": "app.js",
+  "description": "",
+  "private": true,
   "scripts": {
-    "watch:js": "babel --watch --out-dir build app.js",
-    "watch:css": "postcss --watch --use autoprefixer -o build/app.css app.css",
-    "build": "NODE_ENV=production babel --out-dir build app.js && postcss --use autoprefixer -o build/app.css app.css"
+    "start": "webpack --watch --colors",
+    "build": "NODE_ENV=production webpack --colors",
+    "lint": "standard --fix ./source/**/*.js || true"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/EagerApps/TweetThis.git"
+    "url": "git+https://github.com/CloudflareApps/TweetThis.git"
   },
-  "author": "Eager",
+  "author": "Cloudflare Inc.",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/EagerApps/TweetThis/issues"
+    "url": "https://github.com/CloudflareApps/TweetThis/issues"
   },
-  "homepage": "https://github.com/EagerApps/TweetThis#readme",
+  "homepage": "https://github.com/CloudflareApps/TweetThis#readme",
   "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "6.3.6",
-    "babel-cli": "6.4.5",
-    "babel-eslint": "5.0.0",
-    "babel-preset-es2015": "6.3.13",
-    "babel-preset-stage-0": "6.3.13",
-    "eslint": "2.2.0",
-    "eslint-loader": "1.3.0",
-    "eslint-plugin-babel": "3.1.0",
-    "postcss-cli": "2.5.1"
+    "autoprefixer": "^6.7.7",
+    "babel-core": "^6.24.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.2.2",
+    "css-loader": "^0.27.3",
+    "extract-loader": "^0.1.0",
+    "file-loader": "^0.10.1",
+    "postcss-loader": "^1.3.3",
+    "standard": "^9.0.1",
+    "standard-loader": "^6.0.1",
+    "standard-format-loader": "^1.1.0",
+    "style-loader": "^0.14.1",
+    "webpack": "^2.2.1"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "globals": [
+      "INSTALL",
+      "INSTALL_OPTIONS",
+      "INSTALL_SCOPE",
+      "INSTALL_ID"
+    ]
   }
 }
