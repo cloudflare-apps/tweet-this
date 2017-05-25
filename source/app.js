@@ -17,6 +17,9 @@ import * as icons from './icons'
     height: 472
   }
 
+  const isPreview = INSTALL_ID === 'preview'
+  const open = isPreview && INSTALL.preview.open ? INSTALL.preview.open.direct : window.open
+
   let options = INSTALL_OPTIONS
   let selectionString
   let previousSelectionString
@@ -38,7 +41,7 @@ import * as icons from './icons'
     if (options.url.type === 'custom') {
       url = options.url.custom
     } else if (options.url.type === 'location') {
-      if (INSTALL_ID === 'preview') {
+      if (isPreview) {
         const {host, path, scheme} = INSTALL.proxy.originalURL.parsed
 
         url = `${scheme}://${host}${path}`
@@ -81,7 +84,7 @@ import * as icons from './icons'
       .map(key => `${key}=${modalConfig[key]}`)
       .join(',')
 
-    window.open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, '_blank', features)
+    open(`https://twitter.com/intent/tweet?text=${encodeURI(message)}`, '_blank', features)
   }
 
   function updateTooltip (forceVisibility = false) {
