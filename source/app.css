@@ -1,15 +1,15 @@
-.eager-tt-element .eager-tt-content {
+.cf-tt-element .cf-tt-content {
   align-items: center;
   color: white;
   display: flex;
   padding: 0.2em 0.7em 0.2em 1em;
 }
 
-.eager-tt-content:hover {
+.cf-tt-content:hover {
   cursor: pointer;
 }
 
-.eager-tt-content > svg {
+.cf-tt-content > svg {
   display: inline-block;
   height: 2.5em;
   width: 2.5em;

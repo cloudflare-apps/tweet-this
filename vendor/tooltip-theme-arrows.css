@@ -1,28 +1,28 @@
-.eager-tt-element,
-.eager-tt-element:after,
-.eager-tt-element:before,
-.eager-tt-element *,
-.eager-tt-element :after,
-.eager-tt-element :before {
+.cf-tt-element,
+.cf-tt-element:after,
+.cf-tt-element:before,
+.cf-tt-element *,
+.cf-tt-element :after,
+.cf-tt-element :before {
   box-sizing: border-box;
 }
 
-.eager-tt-element {
+.cf-tt-element {
   position: absolute;
   display: none;
 }
 
-.eager-tt-element.eager-tt-open {
+.cf-tt-element.cf-tt-open {
   display: block;
   z-index: 100000;
 }
 
-.eager-tt-element {
+.cf-tt-element {
   max-width: 100%;
   max-height: 100%;
 }
 
-.eager-tt-element .eager-tt-content {
+.cf-tt-element .cf-tt-content {
   background: #000;
   border-radius: 5px;
   color: #eee;
@@ -35,7 +35,7 @@
   text-decoration: none;
 }
 
-.eager-tt-element .eager-tt-content:before {
+.cf-tt-element .cf-tt-content:before {
   content: "";
   display: block;
   position: absolute;
@@ -46,125 +46,125 @@
   border-style: solid;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-center .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-center .cf-tt-content {
   margin-bottom: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-center .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-center .cf-tt-content:before {
   top: 100%;
   left: 50%;
   margin-left: -8px;
   border-top-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-center .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-center .cf-tt-content {
   margin-top: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-center .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-center .cf-tt-content:before {
   bottom: 100%;
   left: 50%;
   margin-left: -8px;
   border-bottom-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-right.eager-tt-element-attached-middle .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-right.cf-tt-element-attached-middle .cf-tt-content {
   margin-right: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-right.eager-tt-element-attached-middle .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-right.cf-tt-element-attached-middle .cf-tt-content:before {
   left: 100%;
   top: 50%;
   margin-top: -8px;
   border-left-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-left.eager-tt-element-attached-middle .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-left.cf-tt-element-attached-middle .cf-tt-content {
   margin-left: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-left.eager-tt-element-attached-middle .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-left.cf-tt-element-attached-middle .cf-tt-content:before {
   right: 100%;
   top: 50%;
   margin-top: -8px;
   border-right-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-left.eager-tt-target-attached-bottom .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-left.cf-tt-target-attached-bottom .cf-tt-content {
   margin-top: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-left.eager-tt-target-attached-bottom .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-left.cf-tt-target-attached-bottom .cf-tt-content:before {
   bottom: 100%;
   left: 8px;
   border-bottom-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-right.eager-tt-target-attached-bottom .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-right.cf-tt-target-attached-bottom .cf-tt-content {
   margin-top: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-right.eager-tt-target-attached-bottom .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-right.cf-tt-target-attached-bottom .cf-tt-content:before {
   bottom: 100%;
   right: 8px;
   border-bottom-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-left.eager-tt-target-attached-top .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-left.cf-tt-target-attached-top .cf-tt-content {
   margin-bottom: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-left.eager-tt-target-attached-top .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-left.cf-tt-target-attached-top .cf-tt-content:before {
   top: 100%;
   left: 8px;
   border-top-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-right.eager-tt-target-attached-top .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-right.cf-tt-target-attached-top .cf-tt-content {
   margin-bottom: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-right.eager-tt-target-attached-top .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-right.cf-tt-target-attached-top .cf-tt-content:before {
   top: 100%;
   right: 8px;
   border-top-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-right.eager-tt-target-attached-left .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-right.cf-tt-target-attached-left .cf-tt-content {
   margin-right: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-right.eager-tt-target-attached-left .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-right.cf-tt-target-attached-left .cf-tt-content:before {
   top: 8px;
   left: 100%;
   border-left-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-left.eager-tt-target-attached-right .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-left.cf-tt-target-attached-right .cf-tt-content {
   margin-left: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-top.eager-tt-element-attached-left.eager-tt-target-attached-right .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-top.cf-tt-element-attached-left.cf-tt-target-attached-right .cf-tt-content:before {
   top: 8px;
   right: 100%;
   border-right-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-right.eager-tt-target-attached-left .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-right.cf-tt-target-attached-left .cf-tt-content {
   margin-right: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-right.eager-tt-target-attached-left .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-right.cf-tt-target-attached-left .cf-tt-content:before {
   bottom: 8px;
   left: 100%;
   border-left-color: #000;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-left.eager-tt-target-attached-right .eager-tt-content {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-left.cf-tt-target-attached-right .cf-tt-content {
   margin-left: 8px;
 }
 
-.eager-tt-element.eager-tt-element-attached-bottom.eager-tt-element-attached-left.eager-tt-target-attached-right .eager-tt-content:before {
+.cf-tt-element.cf-tt-element-attached-bottom.cf-tt-element-attached-left.cf-tt-target-attached-right .cf-tt-content:before {
   bottom: 8px;
   right: 100%;
   border-right-color: #000;

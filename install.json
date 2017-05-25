@@ -7,15 +7,15 @@
       },
       {
         "type": "script",
-        "src": "./vendor/tether.min.js"
+        "src": "./vendor/tether.js"
       },
       {
         "type": "script",
-        "src": "./vendor/drop.min.js"
+        "src": "./vendor/drop.js"
       },
       {
         "type": "script",
-        "src": "./vendor/tooltip.min.js"
+        "src": "./vendor/tooltip.js"
       }
     ],
     "body": [

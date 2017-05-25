@@ -107,9 +107,10 @@
       innerLink.href = 'javascript:openEagerTweetPopup()'
       innerLink.className = 'eager-tt-content'
       innerLink.href = 'javascript:openTweetThisPopup()'
+      innerLink.className = 'cf-tt-content'
 
       tooltip = new window.Tooltip({
-        classes: 'eager-tweet-this',
+        classes: 'cf-tweet-this',
         content: document.createElement('div'),
         openOn: 'always',
         position: 'top center',
@@ -117,7 +118,7 @@
       })
 
       const {drop} = tooltip.drop
-      const vendorContent = drop.querySelector('.eager-tt-content')
+      const vendorContent = drop.querySelector('.cf-tt-content')
 
       drop.removeChild(vendorContent)
       drop.appendChild(innerLink)
