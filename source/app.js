@@ -65,7 +65,7 @@
   }
 
   // Setting this method on the global fixes several cross-browser pop-up issues.
-  window.openEagerTweetPopup = function openEagerTweetPopup () {
+  window.openTweetThisPopup = function openTweetThisPopup () {
     const w = window
     const selection = window.getSelection()
     const message = getMessage()
@@ -106,6 +106,7 @@
       innerLink.innerHTML = text ? `${text} ${BIRD}` : BIRD
       innerLink.href = 'javascript:openEagerTweetPopup()'
       innerLink.className = 'eager-tt-content'
+      innerLink.href = 'javascript:openTweetThisPopup()'
 
       tooltip = new window.Tooltip({
         classes: 'eager-tweet-this',
