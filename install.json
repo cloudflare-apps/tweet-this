@@ -95,7 +95,7 @@
             "order": 1,
             "title": "Custom URL",
             "type": "string",
-            "placeholder": "http://..."
+            "format": "url"
           }
         }
       },
